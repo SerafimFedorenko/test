@@ -12,6 +12,11 @@ namespace ChessLibrary
         {
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
@@ -86,6 +91,16 @@ namespace ChessLibrary
                 x--;
             }
             return DefendedSquares;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return "Rock:" + base.ToString();
         }
     }
 }

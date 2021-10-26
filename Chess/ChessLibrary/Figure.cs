@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace ChessLibrary
 {
@@ -22,6 +21,12 @@ namespace ChessLibrary
             this.color = color;
             this.x = x;
             this.y = y;
+        }
+        public Figure(Figure figure)
+        {
+            color = figure.color;
+            x = figure.x;
+            y = figure.y;
         }
         public void DoMove(int x, int y, Board board)
         {
@@ -58,5 +63,25 @@ namespace ChessLibrary
         }
         public abstract List<(int x, int y)> GetDefendedSquares(Board board);
         public abstract List<(int x, int y)> GetAvailableMoves(Board board);
+
+        public override string ToString()
+        {
+            return "Color:" + color + " place:" + Notation(x) + y;
+        }
+        private string Notation(int x)
+        {
+            string[] letters = new string[8] { "A", "B", "C", "D", "E", "F", "G", "H" };
+            return letters[x];
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

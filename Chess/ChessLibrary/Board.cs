@@ -50,5 +50,18 @@ namespace ChessLibrary
             }
             return AllDefendedSquares;
         }
+        public (int x, int y) GetPlaceOfKing(Color color)
+        {
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    if (!board[x, y].empty && board[x, y].figure)
+                    {
+
+                    }
+                }
+            }
+        }
     }
 }
