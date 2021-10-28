@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ChessLibrary
 {
@@ -14,48 +10,58 @@ namespace ChessLibrary
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj.GetType() != GetType()) return false;
+
+            Pawn pawn = (Pawn)obj;
+            if (pawn.Color == Color && pawn.X == X && pawn.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
-            if (color == Color.White)
+            if (Color == Color.Black)
             {
-                if (board[x, y - 1].empty)
+                if (board[X, Y - 1].empty)
                 {
-                    AvailMoves.Add((x, y - 1));
+                    AvailMoves.Add((X, Y - 1));
                 }
-                if (y == 6 && board[x, y - 2].empty)
+                if (Y == 6 && board[X, Y - 2].empty)
                 {
-                    AvailMoves.Add((x, y - 2));
+                    AvailMoves.Add((X, Y - 2));
                 }
-                if (x != 0 && board[x - 1, y - 1].figure.color != color)
+                if (X != 0 && !board[X - 1, Y - 1].empty && board[X - 1, Y - 1].figure.Color != Color)
                 {
-                    AvailMoves.Add((x - 1, y - 1));
+                    AvailMoves.Add((X - 1, Y - 1));
                 }
-                if (x != 7 && board[x + 1, y - 1].figure.color != color)
+                if (X != 7 && !board[X + 1, Y - 1].empty && board[X + 1, Y - 1].figure.Color != Color)
                 {
-                    AvailMoves.Add((x + 1, y - 1));
+                    AvailMoves.Add((X + 1, Y - 1));
                 }
             }
             else
             {
-                if (board[x, y + 1].empty)
+                if (board[X, Y + 1].empty)
                 {
-                    AvailMoves.Add((x, y + 1));
+                    AvailMoves.Add((X, Y + 1));
                 }
-                if (y == 1 && board[x, y + 2].empty)
+                if (Y == 1 && board[X, Y + 2].empty)
                 {
-                    AvailMoves.Add((x, y + 2));
+                    AvailMoves.Add((X, Y + 2));
                 }
-                if (x != 7 && board[x + 1, y + 1].figure.color != color)
+                if (X != 7 && !board[X + 1, Y + 1].empty && board[X + 1, Y + 1].figure.Color != Color)
                 {
-                    AvailMoves.Add((x + 1, y + 1));
+                    AvailMoves.Add((X + 1, Y + 1));
                 }
-                if (x != 0 && board[x - 1, y + 1].figure.color != color)
+                if (X != 0 && !board[X - 1, Y + 1].empty && board[X - 1, Y + 1].figure.Color != Color)
                 {
-                    AvailMoves.Add((x - 1, y + 1));
+                    AvailMoves.Add((X - 1, Y + 1));
                 }
             }
             return AvailMoves;
@@ -64,26 +70,26 @@ namespace ChessLibrary
         public override List<(int x, int y)> GetDefendedSquares(Board board)
         {
             List<(int x, int y)> DefendedSquares = new List<(int x, int y)>();
-            if (color == Color.White)
+            if (Color == Color.Black)
             {
-                if (x != 0 && board[x - 1, y - 1].figure.color == color)
+                if (X != 0 && board[X - 1, Y - 1].figure.Color == Color)
                 {
-                    DefendedSquares.Add((x - 1, y - 1));
+                    DefendedSquares.Add((X - 1, Y - 1));
                 }
-                if (x != 7 && board[x + 1, y - 1].figure.color == color)
+                if (X != 7 && board[X + 1, Y - 1].figure.Color == Color)
                 {
-                    DefendedSquares.Add((x + 1, y - 1));
+                    DefendedSquares.Add((X + 1, Y - 1));
                 }
             }
             else
             {
-                if (x != 7 && board[x + 1, y + 1].figure.color == color)
+                if (X != 7 && board[X + 1, Y + 1].figure.Color == Color)
                 {
-                    DefendedSquares.Add((x + 1, y + 1));
+                    DefendedSquares.Add((X + 1, Y + 1));
                 }
-                if (x != 0 && board[x - 1, y + 1].figure.color == color)
+                if (X != 0 && board[X - 1, Y + 1].figure.Color == Color)
                 {
-                    DefendedSquares.Add((x - 1, y + 1));
+                    DefendedSquares.Add((X - 1, Y + 1));
                 }
             }
             return DefendedSquares;

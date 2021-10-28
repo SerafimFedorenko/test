@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ChessLibrary
 {
@@ -14,14 +10,24 @@ namespace ChessLibrary
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj.GetType() != GetType()) return false;
+
+            Queen queen = (Queen)obj;
+            if (queen.Color == Color && queen.X == X && queen.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
-            Bishop bishop = new Bishop(color, x, y);
-            Rock rock = new Rock(color, x, y);
+            Bishop bishop = new Bishop(Color, X, Y);
+            Rock rock = new Rock(Color, X, Y);
             AvailMoves.AddRange(bishop.GetAvailableMoves(board));
             AvailMoves.AddRange(rock.GetAvailableMoves(board));
             return AvailMoves;
@@ -29,8 +35,8 @@ namespace ChessLibrary
         public override List<(int x, int y)> GetDefendedSquares(Board board)
         {
             List<(int x, int y)> DefendedSquares = new List<(int x, int y)>();
-            Bishop bishop = new Bishop(color, x, y);
-            Rock rock = new Rock(color, x, y);
+            Bishop bishop = new Bishop(Color, X, Y);
+            Rock rock = new Rock(Color, X, Y);
             DefendedSquares.AddRange(bishop.GetDefendedSquares(board));
             DefendedSquares.AddRange(rock.GetDefendedSquares(board));
             return DefendedSquares;

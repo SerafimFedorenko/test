@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ChessLibrary
 {
@@ -11,45 +7,54 @@ namespace ChessLibrary
         public Rock(Color color, int x, int y) : base(color, x, y)
         {
         }
-
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj.GetType() != GetType()) return false;
+
+            Rock rock = (Rock)obj;
+            if (rock.Color == Color && rock.X == X && rock.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
-            int x = this.x;
-            int y = this.y - 1;
-            while (y >= 0 && (board[x, y].empty || board[x, y].figure.color != color))
+            int x = this.X;
+            int y = this.Y - 1;
+            while (y >= 0 && (board[x, y].empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 y--;
             }
-            x = this.x + 1;
-            y = this.y;
-            while (x < 8 && (board[x, y].empty || board[x, y].figure.color != color))
+            x = this.X + 1;
+            y = this.Y;
+            while (x < 8 && (board[x, y].empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 y--;
             }
-            x = this.x;
-            y = this.y + 1;
-            while (y < 8 && (board[x, y].empty || board[x, y].figure.color != color))
+            x = this.X;
+            y = this.Y + 1;
+            while (y < 8 && (board[x, y].empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 y++;
             }
-            x = this.x - 1;
-            y = this.y;
-            while (x >= 0 && (board[x, y].empty || board[x, y].figure.color != color))
+            x = this.X - 1;
+            y = this.Y;
+            while (x >= 0 && (board[x, y].empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 x--;
             }
             return AvailMoves;
@@ -58,36 +63,36 @@ namespace ChessLibrary
         public override List<(int x, int y)> GetDefendedSquares(Board board)
         {
             List<(int x, int y)> DefendedSquares = new List<(int x, int y)>();
-            int x = this.x;
-            int y = this.y - 1;
-            while (y >= 0 && (board[x, y].empty || board[x, y].figure.color == color))
+            int x = this.X;
+            int y = this.Y - 1;
+            while (y >= 0 && (board[x, y].empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 y--;
             }
-            x = this.x + 1;
-            y = this.y;
-            while (x < 8 && (board[x, y].empty || board[x, y].figure.color == color))
+            x = this.X + 1;
+            y = this.Y;
+            while (x < 8 && (board[x, y].empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 y--;
             }
-            x = this.x;
-            y = this.y + 1;
-            while (y < 8 && (board[x, y].empty || board[x, y].figure.color == color))
+            x = this.X;
+            y = this.Y + 1;
+            while (y < 8 && (board[x, y].empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 y++;
             }
-            x = this.x - 1;
-            y = this.y;
-            while (x >= 0 && (board[x, y].empty || board[x, y].figure.color == color))
+            x = this.X - 1;
+            y = this.Y;
+            while (x >= 0 && (board[x, y].empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (board[x, y].figure != null) break;
+                if (!board[x, y].empty) break;
                 x--;
             }
             return DefendedSquares;

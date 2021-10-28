@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ChessLibrary
 {
@@ -14,20 +10,31 @@ namespace ChessLibrary
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj.GetType() != GetType()) return false;
+
+            Knight knight = (Knight)obj;
+            if (knight.Color == Color && knight.X == X && knight.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
-            List<(int x, int y)> AvailMoves = new List<(int x, int y)>()
+            List<(int x, int y)> DefaultAvailMoves = new List<(int x, int y)>()
             {
-                (x - 2, y - 1),(x - 1, y - 2),(x + 1, y - 2),(x + 2, y - 1),(x + 1, y + 2),(x + 2, y + 1),(x - 1, y + 2),(x - 2, y + 1)
+                (X - 2, Y - 1),(X - 1, Y - 2),(X + 1, Y - 2),(X + 2, Y - 1),(X + 1, Y + 2),(X + 2, Y + 1),(X - 1, Y + 2),(X - 2, Y + 1)
             };
-            foreach ((int x, int y) point in AvailMoves)
+            List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
+            foreach ((int x, int y) point in DefaultAvailMoves)
             {
-                if (point.x < 0 || point.x > 7|| point.y < 0 || point.y > 7 || board[x, y].figure.color == color)
+                if (point.x >= 0 && point.x < 8& point.y >= 0 && point.y < 8 && (board[point.x, point.y].empty || board[point.x, point.y].figure.Color != Color))
                 {
-                    AvailMoves.Remove(point);
+                    AvailMoves.Add(point);
                 }
             }
             return AvailMoves;
@@ -37,11 +44,11 @@ namespace ChessLibrary
         {
             List<(int x, int y)> DefendedSquares = new List<(int x, int y)>()
             {
-                (x - 2, y - 1),(x - 1, y - 2),(x + 1, y - 2),(x + 2, y - 1),(x + 1, y + 2),(x + 2, y + 1),(x - 1, y + 2),(x - 2, y + 1)
+                (X - 2, Y - 1),(X - 1, Y - 2),(X + 1, Y - 2),(X + 2, Y - 1),(X + 1, Y + 2),(X + 2, Y + 1),(X - 1, Y + 2),(X - 2, Y + 1)
             };
             foreach ((int x, int y) point in DefendedSquares)
             {
-                if (point.x < 0 || point.x > 7 || point.y < 0 || point.y > 7 || board[x, y].figure.color != color)
+                if (point.x < 0 || point.x > 7 || point.y < 0 || point.y > 7 || board[point.x, point.y].figure.Color != Color)
                 {
                     DefendedSquares.Remove(point);
                 }

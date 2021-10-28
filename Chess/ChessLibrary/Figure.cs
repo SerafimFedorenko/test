@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ChessLibrary
 {
@@ -13,60 +9,40 @@ namespace ChessLibrary
     }
     public abstract class Figure
     {
-        public int x;
-        public int y;
-        public Color color;
+        private int x;
+        private int y;
+        private Color color;
+
+        public int Y { get => y; set => y = value; }
+        public int X { get => x; set => x = value; }
+        public Color Color { get => color; set => color = value; }
+
         public Figure(Color color, int x, int y)
         {
-            this.color = color;
-            this.x = x;
-            this.y = y;
+            Color = color;
+            X = x;
+            Y = y;
         }
         public Figure(Figure figure)
         {
-            color = figure.color;
-            x = figure.x;
-            y = figure.y;
+            Color = figure.Color;
+            X = figure.X;
+            Y = figure.Y;
         }
         public void DoMove(int x, int y, Board board)
         {
-            board[x, y].figure = this;
-            board[this.x, this.y].ClearSquare();
-            this.x = x;
-            this.y = y;
-        }
-        public bool IsDefended(Board board)
-        {
-            bool defended = false;
-            foreach ((int x, int y) point in board.GetAllDefendedSquares(color))
-            {
-                if (point == (x, y))
-                {
-                    defended = true;
-                    break;
-                }
-            }
-            return defended;
-        }
-        public bool IsAttacked(Board board)
-        {
-            bool defended = false;
-            foreach ((int x, int y) point in board.GetAllAttackedSquares(color))
-            {
-                if (point == (x, y))
-                {
-                    defended = true;
-                    break;
-                }
-            }
-            return defended;
+            
+            board[X, Y].ClearSquare();
+            X = x;
+            Y = y;
+            board[x, y].PutFigure(this);
         }
         public abstract List<(int x, int y)> GetDefendedSquares(Board board);
         public abstract List<(int x, int y)> GetAvailableMoves(Board board);
 
         public override string ToString()
         {
-            return "Color:" + color + " place:" + Notation(x) + y;
+            return "Color:" + Color + " place:" + Notation(X) + Y;
         }
         private string Notation(int x)
         {
@@ -76,7 +52,17 @@ namespace ChessLibrary
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj.GetType() != GetType()) return false;
+
+            Figure figure = (Figure)obj;
+            if (figure.Color == Color && figure.X == X && figure.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override int GetHashCode()
