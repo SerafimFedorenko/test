@@ -8,58 +8,43 @@ namespace ChessLibrary
         {
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != GetType()) return false;
-
-            Pawn pawn = (Pawn)obj;
-            if (pawn.Color == Color && pawn.X == X && pawn.Y == Y)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
             if (Color == Color.Black)
             {
-                if (board[X, Y - 1].empty)
+                if (board[X, Y - 1].Empty)
                 {
                     AvailMoves.Add((X, Y - 1));
                 }
-                if (Y == 6 && board[X, Y - 2].empty)
+                if (Y == 6 && board[X, Y - 2].Empty)
                 {
                     AvailMoves.Add((X, Y - 2));
                 }
-                if (X != 0 && !board[X - 1, Y - 1].empty && board[X - 1, Y - 1].figure.Color != Color)
+                if (X != 0 && !board[X - 1, Y - 1].Empty && board[X - 1, Y - 1].figure.Color != Color)
                 {
                     AvailMoves.Add((X - 1, Y - 1));
                 }
-                if (X != 7 && !board[X + 1, Y - 1].empty && board[X + 1, Y - 1].figure.Color != Color)
+                if (X != 7 && !board[X + 1, Y - 1].Empty && board[X + 1, Y - 1].figure.Color != Color)
                 {
                     AvailMoves.Add((X + 1, Y - 1));
                 }
             }
             else
             {
-                if (board[X, Y + 1].empty)
+                if (board[X, Y + 1].Empty)
                 {
                     AvailMoves.Add((X, Y + 1));
                 }
-                if (Y == 1 && board[X, Y + 2].empty)
+                if (Y == 1 && board[X, Y + 2].Empty)
                 {
                     AvailMoves.Add((X, Y + 2));
                 }
-                if (X != 7 && !board[X + 1, Y + 1].empty && board[X + 1, Y + 1].figure.Color != Color)
+                if (X != 7 && !board[X + 1, Y + 1].Empty && board[X + 1, Y + 1].figure.Color != Color)
                 {
                     AvailMoves.Add((X + 1, Y + 1));
                 }
-                if (X != 0 && !board[X - 1, Y + 1].empty && board[X - 1, Y + 1].figure.Color != Color)
+                if (X != 0 && !board[X - 1, Y + 1].Empty && board[X - 1, Y + 1].figure.Color != Color)
                 {
                     AvailMoves.Add((X - 1, Y + 1));
                 }
@@ -72,22 +57,22 @@ namespace ChessLibrary
             List<(int x, int y)> DefendedSquares = new List<(int x, int y)>();
             if (Color == Color.Black)
             {
-                if (X != 0 && board[X - 1, Y - 1].figure.Color == Color)
+                if (X != 0 && !board[X - 1, Y - 1].Empty && board[X - 1, Y - 1].figure.Color == Color)
                 {
                     DefendedSquares.Add((X - 1, Y - 1));
                 }
-                if (X != 7 && board[X + 1, Y - 1].figure.Color == Color)
+                if (X != 7 && !board[X + 1, Y - 1].Empty && board[X + 1, Y - 1].figure.Color == Color)
                 {
                     DefendedSquares.Add((X + 1, Y - 1));
                 }
             }
             else
             {
-                if (X != 7 && board[X + 1, Y + 1].figure.Color == Color)
+                if (X != 7 && !board[X + 1, Y + 1].Empty && board[X + 1, Y + 1].figure.Color == Color)
                 {
                     DefendedSquares.Add((X + 1, Y + 1));
                 }
-                if (X != 0 && board[X - 1, Y + 1].figure.Color == Color)
+                if (X != 0 && !board[X - 1, Y + 1].Empty && board[X - 1, Y + 1].figure.Color == Color)
                 {
                     DefendedSquares.Add((X - 1, Y + 1));
                 }
@@ -103,6 +88,20 @@ namespace ChessLibrary
         public override string ToString()
         {
             return "Pawn: " + base.ToString();
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType()) return false;
+
+            Pawn pawn = (Pawn)obj;
+            if (pawn.Color == Color && pawn.X == X && pawn.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

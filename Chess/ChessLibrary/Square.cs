@@ -3,25 +3,28 @@
     public class Square
     {
         public Figure figure;
-        public bool empty;
+        private bool empty;
+
+        public bool Empty { get => empty; set => empty = value; }
+
         public Square()
         {
+            Empty = true;
             figure = null;
-            empty = true;
         }
         public void ClearSquare()
         {
-            empty = true;
+            Empty = true;
             figure = null;
         }
         public void PutFigure(Figure figure)
         {
-            empty = false;
+            Empty = false;
             this.figure = figure;
         }
         public void PutNewFigure(int TypeOfFigure, Color color,int x, int y)
         {
-            empty = false;
+            Empty = false;
             switch(TypeOfFigure)
             {
                 case 1:
@@ -46,7 +49,17 @@
         }
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj.GetType() != GetType()) return false;
+
+            Square square = (Square)obj;
+            if (square.figure.Equals(figure) && square.Empty == Empty)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override int GetHashCode()
@@ -56,13 +69,13 @@
 
         public override string ToString()
         {
-            if (empty)
+            if (Empty)
             {
                 return "Empty square";
             }
             else
             {
-                return "Square include fugure:" + figure.ToString();
+                return "Square: " + figure.ToString();
             }
         }
     }

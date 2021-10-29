@@ -26,39 +26,39 @@ namespace ChessLibrary
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
-            int x = this.X - 1;
-            int y = this.Y - 1;
-            while (y >= 0 && x >= 0 && (board[x, y].empty || board[x, y].figure.Color != Color))
+            int x = X - 1;
+            int y = Y - 1;
+            while (y >= 0 && x >= 0 && (board[x, y].Empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 y--;
                 x--;
             }
-            x = this.X + 1;
-            y = this.Y - 1;
-            while (x < 8 && y >= 0 && (board[x, y].empty || board[x, y].figure.Color != Color))
+            x = X + 1;
+            y = Y - 1;
+            while (x < 8 && y >= 0 && (board[x, y].Empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 x++;
                 y--;
             }
-            x = this.X + 1;
-            y = this.Y + 1;
-            while (x < 8 && y < 8 && (board[x, y].empty || board[x, y].figure.Color != Color))
+            x = X + 1;
+            y = Y + 1;
+            while (x < 8 && y < 8 && (board[x, y].Empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 x++;
                 y++;
             }
-            x = this.X - 1;
-            y = this.Y + 1;
-            while (x >= 0 && y < 8 && (board[x, y].empty || board[x, y].figure.Color != Color))
+            x = X - 1;
+            y = Y + 1;
+            while (x >= 0 && y < 8 && (board[x, y].Empty || board[x, y].figure.Color != Color))
             {
                 AvailMoves.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 x--;
                 y++;
             }
@@ -68,39 +68,39 @@ namespace ChessLibrary
         public override List<(int x, int y)> GetDefendedSquares(Board board)
         {
             List<(int x, int y)> DefendedSquares = new List<(int x, int y)>();
-            int x = this.X - 1;
-            int y = this.Y - 1;
-            while (y >= 0 && x >= 0 && (board[x, y].empty || board[x, y].figure.Color == Color))
+            int x = X - 1;
+            int y = Y - 1;
+            while (y >= 0 && x >= 0 && (board[x, y].Empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 y--;
                 x--;
             }
-            x = this.X + 1;
-            y = this.Y - 1;
-            while (x < 8 && y >= 0 && (board[x, y].empty || board[x, y].figure.Color == Color))
+            x = X + 1;
+            y = Y - 1;
+            while (x < 8 && y >= 0 && (board[x, y].Empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 x++;
                 y--;
             }
-            x = this.X + 1;
-            y = this.Y + 1;
-            while (x < 8 && y < 8 && (board[x, y].empty || board[x, y].figure.Color == Color))
+            x = X + 1;
+            y = Y + 1;
+            while (x < 8 && y < 8 && (board[x, y].Empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 x++;
                 y++;
             }
-            x = this.X - 1;
-            y = this.Y + 1;
-            while (x >= 0 && y < 8 && (board[x, y].empty || board[x, y].figure.Color == Color))
+            x = X - 1;
+            y = Y + 1;
+            while (x >= 0 && y < 8 && (board[x, y].Empty || board[x, y].figure.Color == Color))
             {
                 DefendedSquares.Add((x, y));
-                if (!board[x, y].empty) break;
+                if (!board[x, y].Empty) break;
                 x--;
                 y++;
             }

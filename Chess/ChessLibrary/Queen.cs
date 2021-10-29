@@ -8,21 +8,6 @@ namespace ChessLibrary
         {
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != GetType()) return false;
-
-            Queen queen = (Queen)obj;
-            if (queen.Color == Color && queen.X == X && queen.Y == Y)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
@@ -41,7 +26,20 @@ namespace ChessLibrary
             DefendedSquares.AddRange(rock.GetDefendedSquares(board));
             return DefendedSquares;
         }
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType()) return false;
 
+            Queen queen = (Queen)obj;
+            if (queen.Color == Color && queen.X == X && queen.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public override int GetHashCode()
         {
             return base.GetHashCode();

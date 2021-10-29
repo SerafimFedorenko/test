@@ -31,7 +31,7 @@ namespace ChessLibrary
         {
             foreach ((int x, int y) point in GetAllDefendedSquares(color))
             {
-                if (point == (x, y))
+                if (point.x == x && point.y == y)
                 {
                     return true;
                 }
@@ -40,9 +40,9 @@ namespace ChessLibrary
         }
         public bool IsSquareAttacked(int x, int y, Color color)
         {
-            foreach ((int x, int y) point in (GetAllAttackedSquares(color)))
+            foreach ((int x, int y) point in GetAllAttackedSquares(color))
             {
-                if (point == (x, y))
+                if (point.x == x && point.y == y)
                 {
                     return true;
                 }
@@ -78,14 +78,14 @@ namespace ChessLibrary
             board[4, 0].PutNewFigure(6, Color.White, 4, 0);
             board[4, 7].PutNewFigure(6, Color.Black, 4, 7);
         }
-        public List<(int x, int y)> GetAllDefendedSquares(Color color)
+        private List<(int x, int y)> GetAllDefendedSquares(Color color)
         {
             List<(int x, int y)> AllDefendedSquares = new List<(int x, int y)>();
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if(!board[x, y].empty && board[x, y].figure.Color == color)
+                    if(!board[x, y].Empty && board[x, y].figure.Color == color)
                     {
                         AllDefendedSquares.AddRange(board[x, y].figure.GetDefendedSquares(this));
                     }
@@ -93,14 +93,14 @@ namespace ChessLibrary
             }
             return AllDefendedSquares;
         }
-        public List<(int x, int y)> GetAllAttackedSquares(Color color)
+        private List<(int x, int y)> GetAllAttackedSquares(Color color)
         {
             List<(int x, int y)> AllDefendedSquares = new List<(int x, int y)>();
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if (!board[x, y].empty && board[x, y].figure.Color == color)
+                    if (!board[x, y].Empty && board[x, y].figure.Color == color)
                     {
                         AllDefendedSquares.AddRange(board[x, y].figure.GetAvailableMoves(this));
                     }
@@ -118,7 +118,7 @@ namespace ChessLibrary
                 {
                     king.X = x;
                     king.Y = y;
-                    if (!board[x, y].empty && king.Equals(board[x, y].figure))
+                    if (!board[x, y].Empty && king.Equals(board[x, y].figure))
                     {
                         PlaceOfKing = (x, y);
                     }
@@ -146,7 +146,7 @@ namespace ChessLibrary
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if (!board[x, y].empty && board[x, y].figure.Color == color)
+                    if (!board[x, y].Empty && board[x, y].figure.Color == color)
                     {
                         ListOfFigures.Add(board[x, y].figure);
                     }
@@ -188,9 +188,9 @@ namespace ChessLibrary
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if (!board[x, y].empty)
+                    if (!board[x, y].Empty)
                     {
-                        stringListOfFigures += "\n" + board[x, y].figure.ToString();
+                        stringListOfFigures += "\n" + board[x, y].figure.ToString() + ";";
                     }
                 }
             }

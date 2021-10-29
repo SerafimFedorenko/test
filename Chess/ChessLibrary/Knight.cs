@@ -8,6 +8,40 @@ namespace ChessLibrary
         {
         }
 
+        public override List<(int x, int y)> GetAvailableMoves(Board board)
+        {
+            List<(int x, int y)> DefaultAvailMoves = new List<(int x, int y)>()
+            {
+                (X - 2, Y - 1),(X - 1, Y - 2),(X + 1, Y - 2),(X + 2, Y - 1),(X + 1, Y + 2),(X + 2, Y + 1),(X - 1, Y + 2),(X - 2, Y + 1)
+            };
+            List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
+            foreach ((int x, int y) point in DefaultAvailMoves)
+            {
+                if (point.x >= 0 && point.x < 8& point.y >= 0 && point.y < 8 && (board[point.x, point.y].Empty || board[point.x, point.y].figure.Color != Color))
+                {
+                    AvailMoves.Add(point);
+                }
+            }
+            return AvailMoves;
+        }
+
+        public override List<(int x, int y)> GetDefendedSquares(Board board)
+        {
+            List<(int x, int y)> DefaultDefendedSquares = new List<(int x, int y)>()
+            {
+                (X - 2, Y - 1),(X - 1, Y - 2),(X + 1, Y - 2),(X + 2, Y - 1),(X + 1, Y + 2),(X + 2, Y + 1),(X - 1, Y + 2),(X - 2, Y + 1)
+            };
+            List<(int x, int y)> DefendedSquares = new List<(int x, int y)>();
+            foreach ((int x, int y) point in DefaultDefendedSquares)
+            {
+                if (point.x >= 0 && point.x < 8 & point.y >= 0 && point.y < 8 && (board[point.x, point.y].Empty || board[point.x, point.y].figure.Color == Color))
+                {
+                    DefendedSquares.Add(point);
+                }
+            }
+            return DefendedSquares;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj.GetType() != GetType()) return false;
@@ -22,40 +56,6 @@ namespace ChessLibrary
                 return false;
             }
         }
-
-        public override List<(int x, int y)> GetAvailableMoves(Board board)
-        {
-            List<(int x, int y)> DefaultAvailMoves = new List<(int x, int y)>()
-            {
-                (X - 2, Y - 1),(X - 1, Y - 2),(X + 1, Y - 2),(X + 2, Y - 1),(X + 1, Y + 2),(X + 2, Y + 1),(X - 1, Y + 2),(X - 2, Y + 1)
-            };
-            List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
-            foreach ((int x, int y) point in DefaultAvailMoves)
-            {
-                if (point.x >= 0 && point.x < 8& point.y >= 0 && point.y < 8 && (board[point.x, point.y].empty || board[point.x, point.y].figure.Color != Color))
-                {
-                    AvailMoves.Add(point);
-                }
-            }
-            return AvailMoves;
-        }
-
-        public override List<(int x, int y)> GetDefendedSquares(Board board)
-        {
-            List<(int x, int y)> DefendedSquares = new List<(int x, int y)>()
-            {
-                (X - 2, Y - 1),(X - 1, Y - 2),(X + 1, Y - 2),(X + 2, Y - 1),(X + 1, Y + 2),(X + 2, Y + 1),(X - 1, Y + 2),(X - 2, Y + 1)
-            };
-            foreach ((int x, int y) point in DefendedSquares)
-            {
-                if (point.x < 0 || point.x > 7 || point.y < 0 || point.y > 7 || board[point.x, point.y].figure.Color != Color)
-                {
-                    DefendedSquares.Remove(point);
-                }
-            }
-            return DefendedSquares;
-        }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
