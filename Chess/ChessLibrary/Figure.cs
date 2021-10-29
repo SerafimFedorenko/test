@@ -73,7 +73,7 @@ namespace ChessLibrary
         /// <returns></returns>
         public abstract List<(int x, int y)> GetDefendedSquares(Board board);
         /// <summary>
-        /// Abstract method that finds out squares that can move figure can attack or move on those
+        /// Abstract method that finds out squares that figure can attack or move on those
         /// </summary>
         /// <param name="board"></param>
         /// <returns></returns>

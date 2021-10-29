@@ -2,12 +2,25 @@
 
 namespace ChessLibrary
 {
+    /// <summary>
+    /// Class that realizes figure knight
+    /// </summary>
     public class Pawn : Figure
     {
+        /// <summary>
+        /// Constuctor of the class Pawn that determine color and coordinates of the Pawn
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public Pawn(Color color, int x, int y) : base(color, x, y)
         {
         }
-
+        /// <summary>
+        /// Method that finds out squares that pawn can attack or move on those
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
@@ -51,7 +64,11 @@ namespace ChessLibrary
             }
             return AvailMoves;
         }
-
+        /// <summary>
+        /// Method that finds out squares that pawn can defend
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
         public override List<(int x, int y)> GetDefendedSquares(Board board)
         {
             List<(int x, int y)> DefendedSquares = new List<(int x, int y)>();

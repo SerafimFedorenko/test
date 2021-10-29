@@ -3,9 +3,15 @@ using System.Linq;
 
 namespace ChessLibrary
 {
+    /// <summary>
+    /// Class that realize chess board
+    /// </summary>
     public class Board
     {
         private Square[,] board = new Square[8, 8];
+        /// <summary>
+        /// Method that create empty chess board
+        /// </summary>
         public Board()
         {
             for (int i = 0; i < 8; i++)
@@ -16,6 +22,12 @@ namespace ChessLibrary
                 }
             }
         }
+        /// <summary>
+        /// Indexer of class Board
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public Square this[int x, int y]
         {
             get
@@ -27,6 +39,13 @@ namespace ChessLibrary
                 board[x, y] = value;
             }
         }
+        /// <summary>
+        /// Method that finds out is square is defended by figures with entered color
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public bool IsSquareDefended(int x, int y, Color color)
         {
             foreach ((int x, int y) point in GetAllDefendedSquares(color))
@@ -38,6 +57,13 @@ namespace ChessLibrary
             }
             return false;
         }
+        /// <summary>
+        /// Method that finds out is square is attacked by figures with entered color
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public bool IsSquareAttacked(int x, int y, Color color)
         {
             foreach ((int x, int y) point in GetAllAttackedSquares(color))
@@ -49,6 +75,9 @@ namespace ChessLibrary
             }
             return false;
         }
+        /// <summary>
+        /// Method that realize start placement of figures
+        /// </summary>
         public void StartPlacement()
         {
             for (int i = 0; i < 8; i++)
@@ -78,6 +107,11 @@ namespace ChessLibrary
             board[4, 0].PutNewFigure(6, Color.White, 4, 0);
             board[4, 7].PutNewFigure(6, Color.Black, 4, 7);
         }
+        /// <summary>
+        /// Method that return all deffended squares by figures with entered color
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         private List<(int x, int y)> GetAllDefendedSquares(Color color)
         {
             List<(int x, int y)> AllDefendedSquares = new List<(int x, int y)>();
@@ -93,6 +127,11 @@ namespace ChessLibrary
             }
             return AllDefendedSquares;
         }
+        /// <summary>
+        /// Method that return all attacked squares by figures with entered color
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         private List<(int x, int y)> GetAllAttackedSquares(Color color)
         {
             List<(int x, int y)> AllDefendedSquares = new List<(int x, int y)>();
@@ -108,6 +147,11 @@ namespace ChessLibrary
             }
             return AllDefendedSquares;
         }
+        /// <summary>
+        /// Method that finds out the place off the king with entered color
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public (int x, int y) GetPlaceOfKing(Color color)
         {
             King king = new King(color,0, 0);
@@ -126,6 +170,11 @@ namespace ChessLibrary
             }
             return PlaceOfKing;
         }
+        /// <summary>
+        /// Method that finds out is place of king is attacked by figures with entered color
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public bool Check(Color color)
         {
             if (color == Color.Black)
@@ -139,6 +188,11 @@ namespace ChessLibrary
                 return IsSquareAttacked(PlaceOfKing.x, PlaceOfKing.y, Color.Black);
             }
         }
+        /// <summary>
+        /// Method that return lest of all figures with entered color on the board
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         private List<Figure> GetListOfFigures(Color color)
         {
             List<Figure> ListOfFigures = new List<Figure>();
@@ -154,6 +208,11 @@ namespace ChessLibrary
             }
             return ListOfFigures;
         }
+        /// <summary>
+        /// Method that find out is king is attacked and can king to move
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public bool Мate(Color color)
         {
             if (color == Color.Black)
@@ -181,6 +240,10 @@ namespace ChessLibrary
                 }
             }
         }
+        /// <summary>
+        /// Method that create list of figures in the board
+        /// </summary>
+        /// <returns></returns>
         private string GetStringListOfFigures()
         {
             string stringListOfFigures = "";

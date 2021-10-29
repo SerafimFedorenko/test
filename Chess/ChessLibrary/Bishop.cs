@@ -2,27 +2,26 @@
 
 namespace ChessLibrary
 {
+    /// <summary>
+    /// Class that realizes figure bishop
+    /// </summary>
     public class Bishop : Figure
     {
+        /// <summary>
+        /// Constuctor of the class Bishop that determine color and coordinates of the Bishop
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public Bishop(Color color, int x, int y) : base(color, x, y)
         {
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != GetType()) return false;
-
-            Bishop bishop = (Bishop)obj;
-            if (bishop.Color == Color && bishop.X == X && bishop.Y == Y)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        /// <summary>
+        /// Method that finds out squares that bishop can attack or move on those
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
         public override List<(int x, int y)> GetAvailableMoves(Board board)
         {
             List<(int x, int y)> AvailMoves = new List<(int x, int y)>();
@@ -64,6 +63,11 @@ namespace ChessLibrary
             }
             return AvailMoves;
         }
+        /// <summary>
+        /// Method that finds out squares that bishop can defend
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
 
         public override List<(int x, int y)> GetDefendedSquares(Board board)
         {
@@ -115,6 +119,21 @@ namespace ChessLibrary
         public override string ToString()
         {
             return "Bishop: " + base.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType()) return false;
+
+            Bishop bishop = (Bishop)obj;
+            if (bishop.Color == Color && bishop.X == X && bishop.Y == Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
