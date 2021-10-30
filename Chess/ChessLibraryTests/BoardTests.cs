@@ -11,7 +11,7 @@ namespace ChessLibrary.Tests
     [TestClass()]
     public class BoardTests
     {
-        [TestMethod()]
+        [DataTestMethod()]
         [DataRow(0, 0, false, Color.Black)]
         [DataRow(0, 7, true, Color.Black)]
         [DataRow(7, 0, true, Color.Black)]
@@ -30,10 +30,10 @@ namespace ChessLibrary.Tests
             board[7, 5].PutNewFigure(2, Color.Black, 7, 5);
             board[0, 0].PutNewFigure(4, Color.White, 0, 0);
             bool IsAttaked = board.IsSquareDefended(x, y, color);
-            Assert.AreEqual(IsAttaked, expAttaked);
+            Assert.AreEqual(expAttaked, IsAttaked);
         }
 
-        [TestMethod()]
+        [DataTestMethod()]
         [DataRow(0, 0, true, Color.Black)]
         [DataRow(0, 7, true, Color.Black)]
         [DataRow(7, 0, true, Color.Black)]
@@ -52,10 +52,10 @@ namespace ChessLibrary.Tests
             board[7, 5].PutNewFigure(2, Color.Black, 7, 5);
             board[0, 0].PutNewFigure(4, Color.White, 0, 0);
             bool IsAttaked = board.IsSquareAttacked(x, y, color);
-            Assert.AreEqual(IsAttaked, expAttaked);
+            Assert.AreEqual(expAttaked, IsAttaked);
         }
 
-        [TestMethod()]
+        [DataTestMethod()]
         [DataRow(0, 0, Color.Black)]
         [DataRow(0, 7, Color.Black)]
         [DataRow(7, 0, Color.White)]
@@ -63,20 +63,22 @@ namespace ChessLibrary.Tests
         {
             Board board = new Board();
             board[expX, expY].PutNewFigure(6, color, expX, expY);
-            Assert.AreEqual(board.GetPlaceOfKing(color).x, expX);
-            Assert.AreEqual(board.GetPlaceOfKing(color).y, expY);
+            Assert.AreEqual(expX, board.GetPlaceOfKing(color).x);
+            Assert.AreEqual(expY, board.GetPlaceOfKing(color).y);
         }
 
-        [TestMethod()]
-        public void CheckTest()
+        [DataTestMethod()]
+        [DataRow(0, 0, Color.Black, false)]
+        [DataRow(0, 0, Color.White, true)]
+        [DataRow(7, 0, Color.Black, true)]
+        [DataRow(7, 0, Color.White, false)]
+        public void CheckTest(int x, int y, Color color, bool expCheck)
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void МateTest()
-        {
-            Assert.Fail();
+            Board board = new Board();
+            board[x, y].PutNewFigure(6, color, x, y);
+            board[0, 3].PutNewFigure(2, Color.Black, 0, 3);
+            board[0, 7].PutNewFigure(4, Color.White, 0, 7);
+            Assert.AreEqual(expCheck, board.Check(color));
         }
     }
 }

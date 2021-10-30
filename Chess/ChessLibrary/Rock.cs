@@ -16,6 +16,12 @@ namespace ChessLibrary
         public Rock(Color color, int x, int y) : base(color, x, y)
         {
         }
+        /// Copy constructor that сreates a rock from a pawn
+        /// </summary>
+        /// <param name="pawn"></param>
+        public Rock(Pawn pawn) : base(pawn)
+        {
+        }
         /// <summary>
         /// Method that finds out squares that rock can attack or move on those
         /// </summary>
@@ -116,7 +122,7 @@ namespace ChessLibrary
         }
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return X.GetHashCode() + Y.GetHashCode() + Color.GetHashCode();
         }
 
         public override string ToString()

@@ -1,27 +1,51 @@
 ﻿namespace ChessLibrary
 {
+    /// <summary>
+    /// Class that realize a square of chess board
+    /// </summary>
     public class Square
     {
+        /// <summary>
+        /// Figure on this square
+        /// </summary>
         public Figure figure;
         private bool empty;
-
+        /// <summary>
+        /// The property that answers the question: "The square is empty or contains a figure"
+        /// </summary>
         public bool Empty { get => empty; set => empty = value; }
-
+        /// <summary>
+        /// Constructor of class Square
+        /// </summary>
         public Square()
         {
             Empty = true;
             figure = null;
         }
+        /// <summary>
+        /// Method that clears the square
+        /// </summary>
         public void ClearSquare()
         {
             Empty = true;
             figure = null;
         }
+        /// <summary>
+        /// Method that put аlready created figure on the square
+        /// </summary>
+        /// <param name="figure"></param>
         public void PutFigure(Figure figure)
         {
             Empty = false;
             this.figure = figure;
         }
+        /// <summary>
+        /// Method that creates figure and put it on the square
+        /// </summary>
+        /// <param name="TypeOfFigure"></param>
+        /// <param name="color"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void PutNewFigure(int TypeOfFigure, Color color,int x, int y)
         {
             Empty = false;
@@ -64,7 +88,7 @@
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return figure.GetHashCode() + empty.GetHashCode();
         }
 
         public override string ToString()

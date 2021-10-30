@@ -99,7 +99,7 @@ namespace ChessLibrary
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return X.GetHashCode() + Y.GetHashCode() + Color.GetHashCode();
         }
 
         public override string ToString()

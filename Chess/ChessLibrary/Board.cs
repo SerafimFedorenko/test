@@ -23,6 +23,20 @@ namespace ChessLibrary
             }
         }
         /// <summary>
+        /// Copy constructor of class board
+        /// </summary>
+        /// <param name="board"></param>
+        public Board(Board board)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    this[i, j] = board[i, j];
+                }
+            }
+        }
+        /// <summary>
         /// Indexer of class Board
         /// </summary>
         /// <param name="x"></param>
@@ -119,7 +133,7 @@ namespace ChessLibrary
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if(!board[x, y].Empty && board[x, y].figure.Color == color)
+                    if (!board[x, y].Empty && board[x, y].figure.Color == color)
                     {
                         AllDefendedSquares.AddRange(board[x, y].figure.GetDefendedSquares(this));
                     }
@@ -154,7 +168,7 @@ namespace ChessLibrary
         /// <returns></returns>
         public (int x, int y) GetPlaceOfKing(Color color)
         {
-            King king = new King(color,0, 0);
+            King king = new King(color, 0, 0);
             (int x, int y) PlaceOfKing = (-1, -1);
             for (int x = 0; x < 8; x++)
             {
@@ -209,38 +223,6 @@ namespace ChessLibrary
             return ListOfFigures;
         }
         /// <summary>
-        /// Method that find out is king is attacked and can king to move
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        public bool Мate(Color color)
-        {
-            if (color == Color.Black)
-            {
-                (int x, int y) PlaceOfKing = GetPlaceOfKing(Color.Black);
-                if (Check(Color.Black) && board[PlaceOfKing.x, PlaceOfKing.y].figure.GetAvailableMoves(this).Count == 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                (int x, int y) PlaceOfKing = GetPlaceOfKing(Color.White);
-                if (Check(Color.White))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        /// <summary>
         /// Method that create list of figures in the board
         /// </summary>
         /// <returns></returns>
@@ -266,12 +248,29 @@ namespace ChessLibrary
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj.GetType() != GetType()) return false;
+            bool IsEqual = false;
+            Board board = (Board)obj;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[i, j].Equals(this[i, j]))
+                    {
+                        IsEqual = true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return IsEqual;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return board.GetHashCode();
         }
     }
 }

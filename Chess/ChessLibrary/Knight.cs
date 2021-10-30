@@ -17,6 +17,14 @@ namespace ChessLibrary
         {
         }
         /// <summary>
+        /// Copy constructor that сreates a knight from a pawn
+        /// </summary>
+        /// <param name="pawn"></param>
+        public Knight(Pawn pawn) : base(pawn)
+        {
+        }
+
+        /// <summary>
         /// Method that finds out squares that knight can attack or move on those
         /// </summary>
         /// <param name="board"></param>
@@ -75,7 +83,7 @@ namespace ChessLibrary
         }
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return X.GetHashCode() + Y.GetHashCode() + Color.GetHashCode();
         }
 
         public override string ToString()

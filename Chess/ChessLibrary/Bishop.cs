@@ -16,7 +16,12 @@ namespace ChessLibrary
         public Bishop(Color color, int x, int y) : base(color, x, y)
         {
         }
-
+        /// Copy constructor that сreates a bishop from a pawn
+        /// </summary>
+        /// <param name="pawn"></param>
+        public Bishop(Pawn pawn) : base(pawn)
+        {
+        }
         /// <summary>
         /// Method that finds out squares that bishop can attack or move on those
         /// </summary>
@@ -113,7 +118,7 @@ namespace ChessLibrary
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return X.GetHashCode() + Y.GetHashCode() + Color.GetHashCode();
         }
 
         public override string ToString()

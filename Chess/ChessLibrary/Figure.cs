@@ -7,11 +7,17 @@ namespace ChessLibrary
     /// </summary>
     public enum Color
     {
+        /// <summary>
+        /// White Color 
+        /// </summary>
         White,
+        /// <summary>
+        /// Black Color
+        /// </summary>
         Black
     }
     /// <summary>
-    /// Abstract class that realizes a figure
+    /// Class that realizes a figure
     /// </summary>
     public abstract class Figure
     {
@@ -58,7 +64,7 @@ namespace ChessLibrary
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="board"></param>
-        public void DoMove(int x, int y, Board board)
+        public void DoMove(Board board, int x, int y)
         {
             
             board[X, Y].ClearSquare();
@@ -67,17 +73,35 @@ namespace ChessLibrary
             board[x, y].PutFigure(this);
         }
         /// <summary>
-        /// Abstract method that finds out squares that figure can defend
+        /// Method that finds out squares that figure can defend
         /// </summary>
         /// <param name="board"></param>
         /// <returns></returns>
         public abstract List<(int x, int y)> GetDefendedSquares(Board board);
         /// <summary>
-        /// Abstract method that finds out squares that figure can attack or move on those
+        /// Method that finds out squares that figure can attack or move on those
         /// </summary>
         /// <param name="board"></param>
         /// <returns></returns>
         public abstract List<(int x, int y)> GetAvailableMoves(Board board);
+        /// <summary>
+        /// Method that finds out if figure can move in square
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public bool CanMove(Board board, int x, int y)
+        {
+            foreach ((int x, int y) point in GetAvailableMoves(board))
+            {
+                if (point.x == x && point.y == y)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         /// <summary>
         /// Translate coordinates of figure to chess Notation
         /// </summary>
@@ -90,7 +114,7 @@ namespace ChessLibrary
         }
         public override string ToString()
         {
-            return "Color: " + Color + ", place: " + Notation(X) + Y;
+            return "Color: " + Color + ", place: " + Notation(X) + (Y++);
         }
 
         public override bool Equals(object obj)
@@ -110,7 +134,7 @@ namespace ChessLibrary
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return X.GetHashCode() + Y.GetHashCode() + Color.GetHashCode();
         }
     }
 }
